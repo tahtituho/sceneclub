@@ -1,0 +1,93 @@
+{
+    "demo": {
+        "name": "sceneclub 2019",
+        "group": "tähtituho"
+    },
+    "screen": {
+        "width": 1280,
+        "height": 960,
+        "FPS": 60
+    },
+    "music": {
+        "file": "assets\\music\\music.mp3",
+        "BPM": 80.0,
+		"frequency": 44000
+    },
+	"sync": {
+        "RPB": 8,
+        "file": "assets\\music\\demo-release.rocket",
+        "host": "localhost"
+    },
+    "shaders": {
+        "vertex": "assets\\shaders\\vertex.vert",
+        "fragment": "assets\\shaders\\fragment.frag",
+        "majorVersion": 3,
+        "minorVersion": 3
+    },
+	 "assets": [
+        {
+            "type": "texture",
+            "name": "texture01",
+            "file": "assets\\textures\\texture01.png"
+        },
+        {
+            "type": "texture",
+            "name": "texture01nm",
+            "file": "assets\\textures\\texture01nm.png"
+        },
+		{
+            "type": "texture",
+            "name": "texture02",
+            "file": "assets\\textures\\texture02.png"
+        },
+		{
+            "type": "texture",
+            "name": "texture02nm",
+            "file": "assets\\textures\\texture02nm.png"
+        },
+		{
+            "type": "texture",
+            "name": "texture03nm",
+            "file": "assets\\textures\\texture03nm.png"
+        }
+    ],
+    "tracks": [
+        {
+            "type": "float3",
+            "name": {
+                "track": "camera:position",
+                "variable": "cameraPosition"
+            }
+        },
+        {
+            "type": "float3",
+            "name": {
+                "track": "camera:lookat",
+                "variable": "cameraLookAt"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "march:maxsteps",
+                "variable": "rayMaxSteps"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "march:threshold",
+                "variable": "rayThreshold"
+            }
+        },
+        {
+            "type": "float3",
+            "name": {
+                "track": "light:position",
+                "variable": "lightPosition"
+            }
+        }
+    ]
+
+    
+}
