@@ -13,11 +13,20 @@ uniform float rayThreshold;
 
 uniform vec3 lightPosition;
 
+uniform vec3 diskPosition;
+uniform vec3 diskRotation;
+uniform vec3 diskIterationTranslate;
+uniform vec3 diskIterationRotation;
+uniform float diskScale;
+uniform float diskOffset;
+uniform float diskIterations;
+
 uniform sampler2D texture01;
 uniform sampler2D texture01nm;
 uniform sampler2D texture02;
 uniform sampler2D texture02nm;
 uniform sampler2D texture03nm;
+uniform sampler2D labelTexture;
 
 in float[12] sines;
 in float[12] coses;
@@ -36,6 +45,7 @@ struct material {
 
     float shadowHardness;
     bool receiveShadows;
+    int texture;
 };
 
 struct entity {
@@ -127,11 +137,11 @@ float sdEllipsoid(vec3 p, vec3 pos, vec3 r)
     return k0 * (k0 - 1.0) / k1;
 }
 
-float sdBox(vec3 p, vec3 pos, vec3 b)
+float sdBox(vec3 p, vec3 pos, vec3 b, float r)
 {   
     vec3 p1 = vec3(p) + pos;
     vec3 d = abs(p1) - b;
-    return min(max(d.x,max(d.y,d.z)),0.0) + length(max(d,0.0));
+    return min(max(d.x,max(d.y,d.z)),0.0) + length(max(d,0.0)) - r;
 }
 
 float sdTorus(vec3 p, vec3 pos, vec2 t)
@@ -300,7 +310,9 @@ vec3 rotZ(vec3 p, float a)
         p.z
     );
 }
-
+vec3 rot(vec3 p, vec3 a) {
+    return rotX(rotY(rotZ(p, a.z), a.y), a.x);
+}
 vec3 translate(vec3 p, vec3 p1) {
     return p + (p1 * -1.0);
 }
@@ -385,9 +397,9 @@ vec3 boxFold(vec3 z, vec3 r) {
 entity mCross(vec3 path, vec3 l, vec3 t, float r, float s, material material) {
     entity m;
     vec3 p1 = path;
-    float d1 = sdBox(p1, vec3(0.0), vec3(t.x, t.y, l.z)) - r;
-    float d2 = sdBox(p1, vec3(0.0), vec3(l.x, t.y, t.z)) - r;
-    float d3 = sdBox(p1, vec3(0.0), vec3(t.x, l.y, t.z)) - r;
+    float d1 = sdBox(p1, vec3(0.0), vec3(t.x, t.y, l.z), r);
+    float d2 = sdBox(p1, vec3(0.0), vec3(l.x, t.y, t.z), r);
+    float d3 = sdBox(p1, vec3(0.0), vec3(t.x, l.y, t.z), r);
     m.dist = opSmoothUnion(d1, opSmoothUnion(d2, d3, s), s);
     m.point = p1;
     m.material = material;
@@ -403,10 +415,10 @@ entity mSphere(vec3 path, float radius, material material) {
     return m;
 }
 
-entity mBox(vec3 path, vec3 size, material material) {
+entity mBox(vec3 path, vec3 size, float r, material material) {
     entity m;
     vec3 p1 = path;
-    m.dist = sdBox(path, vec3(0.0), size);
+    m.dist = sdBox(path, vec3(0.0), size, r);
     m.point = p1;
     m.material = material;
     return m;
@@ -421,6 +433,121 @@ entity mTorus(vec3 path, vec2 dim, material material) {
     return m;
 }
 
+entity mDisk(vec3 path) {
+    vec3 diskSize = vec3(8.9, 9.3, 0.3);
+    vec3 holeSize = vec3(0.49, 0.381, 1.0);
+    vec3 labelSize = vec3(6.943, 5.419, 0.15);
+    vec3 sliderCreviceSize = vec3(6.096, 3.133, 0.3);
+    vec3 sliderSize = vec3(4.741, 3.133, 0.20);
+    vec3 sliderHoleSize = vec3(1.185, 2.455, 1.0);
+    vec3 notchSize = vec3(1.0, 1.0, 0.4);
+
+    material bodyMaterial = material(
+        vec3(0.1, 0.1, 0.1),
+        0.1,
+        vec3(0.1, 0.1, 0.1),
+        0.1,
+        vec3(0.508273, 0.508273, 0.508273),
+        0.0,
+        0.4,
+        1.0, 
+        true,
+        0
+    );
+
+    material labelMaterial = material(
+        vec3(1.0, 1.0, 1.0),
+        1.0,
+        vec3(1.0, 1.0, 1.0),
+        1.0,
+        vec3(0.508273, 0.508273, 0.508273),
+        0.0,
+        0.4,
+        1.0, 
+        true,
+        1
+    );
+
+    material sliderMaterial = material(
+        vec3(0.25, 0.25, 0.25),
+        1.0,
+        vec3(0.4, 0.4, 0.4),
+        1.0,
+        vec3(0.774597, 0.774597, 0.774597),
+        1.0,
+        1.4,
+        1.0, 
+        true,
+        0
+    );
+
+    entity bodyHull = mBox(
+        path,
+        diskSize,
+        0.0,
+        bodyMaterial
+    );
+    bodyHull.needNormals = true;
+
+    entity leftHoleHull = mBox(
+        translate(path, vec3(8.128, -7.45, 0.95)),
+        holeSize,
+        0.0,
+        bodyMaterial
+    );
+    leftHoleHull.needNormals = true;
+
+    entity rightHoleHull = mBox(
+        translate(path, vec3(-8.128, -7.45, 0.0)),
+        holeSize,
+        0.0,
+        bodyMaterial
+    );
+    rightHoleHull.needNormals = true;
+
+    entity labelHull = mBox(
+        translate(path, vec3(0.0, -3.9, 0.3)),
+        labelSize,
+        0.0,
+        labelMaterial
+    );
+    labelHull.needNormals = true;
+
+    entity sliderCreviceHull = mBox(
+        translate(path, vec3(0.8, 6.18, 0.3)),
+        sliderCreviceSize,
+        0.0,
+        bodyMaterial
+    );
+    sliderCreviceHull.needNormals = true;
+
+    entity sliderHull = opSubtraction(
+        mBox(
+            translate(path, vec3(-2.2, 5.8, 0.0)),
+            sliderHoleSize,
+            0.0,
+            sliderMaterial
+        ),
+        mBox(
+            translate(path, vec3(-0.45, 6.15, -0.1)),
+            sliderSize,
+            0.05,
+            sliderMaterial
+        )
+    );
+    sliderHull.needNormals = true;
+
+    entity notchHull = mBox(
+        rotZ(translate(path, vec3(-9.128, 9.45, 0.0)), 0.785398),
+        notchSize,
+        0.0,
+        bodyMaterial
+    );
+    entity complete = opSubtraction(notchHull, opUnion(sliderHull, opSubtraction(sliderCreviceHull, opSubtraction(labelHull, opSubtraction(rightHoleHull, opSubtraction(leftHoleHull, bodyHull))))));
+    return complete;
+
+}
+
 entity mFractal(vec3 path, int iter, float s, float o, material material) {
     entity m;
     vec3 p1 = path;
@@ -428,101 +555,63 @@ entity mFractal(vec3 path, int iter, float s, float o, material material) {
     float offset = o;
     for(int i = 1; i <= iter; i++) {
 
-        p1 = boxFold(p1, vec3(5.0, 5.0, 5.0));
+        //p1 = boxFold(p1, vec3(2.0, 2.0, 2.0));
+        //p1 = sierpinskiFold(p1);
+        p1 = sphereFold(p1, 0.01, 1.8);
+        //p1 = mengerFold(p1);
+        //p1 = absFold(p1, vec3(1.2, 1.2, 1.2));
+        //p1 = planeFold(p1, normalize(vec3(1.0, 1.0, 1.0)), 0.5);
         //p1 = rotZ(p1, time);
-        //p1 = rotY(rotZ(rotX(p1, time), time), time);
-        p1 = translate(p1, vec3(0.0, 0.0, 0.0));
+        //p1 = rotY(rotZ(rotX(p1, 2.2), 0.4), 0.5);
+        p1 = translate(p1, vec3(1.0, 1.0, 1.0));
         p1 *= scale - offset * (scale - 1.0);
        
     }
 
-    m = mBox(p1, vec3(1.0, 1.0, 1.0), material);
+    m = mBox(p1, vec3(1.0, 1.0, 1.0), 0.0, material);
     //this makes further objects darker
     //m.dist *= pow(scale, -float(iter));
     return m;
 }
 
+entity mDiskFractal(vec3 path, int iter, float s, float o, vec3 rotation, vec3 trans) {
+    entity m;
+    vec3 p1 = path;
+    float scale = s;
+    float offset = o;
+    for(int i = 1; i <= iter; i++) {
+
+        p1 = boxFold(p1, vec3(15.0, 15.0, 15.0));
+        
+        //p1 = mengerFold(p1);
+        //p1 = sphereFold(p1, -10.9, 70.0);
+       
+        p1 = translate(p1, trans);
+        p1 = rotX(rotY(rotZ(p1, rotation.z), rotation.y), rotation.x);
+       
+        p1 *= scale - offset * (scale - 1.0);
+       
+    }
+    
+    m = mDisk(p1);
+    //this makes further objects darker
+    //m.dist *= pow(scale, -float(iter));
+    m.point = p1;
+    return m;
+}
+
 entity scene(vec3 path)
-{    
-    material gold = material(
-        vec3(0.24725, 0.1995, 0.0745),
-        1.0,
-        vec3(0.75164, 0.60648, 0.22648),
-        1.0,
-        vec3(0.628281, 0.555802, 0.366065),
-        1.0,
-        0.4,
-        1.0, 
-        true
+{   
+    entity disks = mDiskFractal(
+        rot(translate(path, diskPosition), diskRotation),
+        int(diskIterations),
+        diskScale,
+        diskOffset,
+        diskIterationRotation,
+        diskIterationTranslate
     );
-
-    material silver = material(
-        vec3(0.24725, 0.19225, 0.19225),
-        1.0,
-        vec3(0.50754, 0.50754, 0.50754),
-        1.0,
-        vec3(0.508273, 0.508273, 0.508273),
-        1.0,
-        0.4,
-        1.0, 
-        true
-    );
-
-    material chrome = material(
-        vec3(0.25, 0.25, 0.25),
-        1.0,
-        vec3(0.4, 0.4, 0.4),
-        1.0,
-        vec3(0.774597, 0.774597, 0.774597),
-        1.0,
-        2.6,
-        1.0, 
-        true
-    );
-
-    material emerald = material(
-        vec3(0.0215, 0.1745, 0.0215),
-        1.0,
-        vec3(0.07568, 0.61424, 0.07568),
-        1.0,
-        vec3(0.633, 0.727811, 0.633),
-        10.0,
-        12.6,
-        0.5, 
-        true
-    );
-
-    entity e1 = mTorus(
-        rotY(rotX(translate(path, vec3(0.0, 4.0, 0.0)), time), time),
-        vec2(2.0, 1.0),
-        gold
-    );
-    e1.needNormals = true;
-    entity e2 = mTorus(
-        rotZ(rotX(translate(path, vec3(2.0, 8.0, 0.0)), time / 6.0), time / 2.0),
-        vec2(1.5, 1.0),
-        silver
-    );
-    e2.needNormals = true;
-    entity e3 = mCross(
-        rotY(rotX(translate(path, vec3(4.0, 5.0, 4.0)), time), time),
-        vec3(4.0, 4.0, 4.0),
-        vec3(0.4, 0.4, 0.4),
-        0.2,
-        2.2,
-        chrome
-    );
-    e3.needNormals = true;
-    entity f = mFractal(
-        rotY(path, time),
-        1,
-        1.0,
-        1.0,
-        emerald
-    );
-    f.needNormals = true;
-    return f;
-    return opUnion(opUnion(e1, e2), e3);  
+    disks.needNormals = true;
+    return disks;
 } 
 
 hit raymarch(vec3 rayOrigin, vec3 rayDirection) {
@@ -615,11 +704,13 @@ vec3 processColor(hit h, vec3 rd, vec3 eye, vec2 uv, vec3 lp)
 {
     if(h.steps >= rayMaxSteps) {
         //We did not hit anything
-        return vec3(0.5, 0.5, 0.5) * smoothstep(0.001, 0.05, h.last);
+        return vec3(0.0, 0.0, 1.0);
     }
    
     vec3 depth = vec3((1.0 - smoothstep(0.0, rayMaxSteps, float(h.steps))));
-
+    if(h.entity.material.texture == 1) {
+        depth *= texture(texture01, planarMapping(vec3(h.entity.point.x, h.entity.point.y / 4.5, h.entity.point.z / 1.5))).rgb;
+    }
     vec3 ambient = ambient(h.entity.material.ambient, h.entity.material.ambientStrength);
     vec3 diffuse = diffuse(h.normal, h.point, lp, h.entity.material.diffuse, h.entity.material.diffuseStrength);
     vec3 specular = specular(h.normal, eye, h.point, lp, h.entity.material.specular, h.entity.material.specularStrength, h.entity.material.shininess);

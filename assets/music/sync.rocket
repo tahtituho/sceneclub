@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rootElement>
 <tracks rows="10000" startRow="0" endRow="10000" rowsPerBeat="8"
-beatsPerMin="125">
+beatsPerMin="70">
 	<track name="camera:position.x" folded="0" muteKeyCount="0"
 color="ffb27474">
-		<key row="0" value="10.000000" interpolation="0" />
+		<key row="0" value="20.000000" interpolation="0" />
 	</track>
 	<track name="camera:position.y" folded="0" muteKeyCount="0"
 color="ffb28050">
-		<key row="0" value="10.000000" interpolation="0" />
+		<key row="0" value="0.000000" interpolation="0" />
 	</track>
 	<track name="camera:position.z" folded="0" muteKeyCount="0"
 color="ffa9b250">
-		<key row="0" value="10.000000" interpolation="0" />
+		<key row="0" value="20.000000" interpolation="0" />
 	</track>
 	<track name="camera:lookat.x" folded="0" muteKeyCount="0"
 color="ff60b250">
@@ -36,15 +36,184 @@ color="ffb25091">
 	</track>
 	<track name="light:position.x" folded="0" muteKeyCount="0"
 color="ffb27474">
-		<key row="0" value="10.000000" interpolation="0" />
+		<key row="0" value="0.000000" interpolation="1" />
 	</track>
 	<track name="light:position.y" folded="0" muteKeyCount="0"
 color="ffb28050">
-		<key row="0" value="10.000000" interpolation="0" />
+		<key row="0" value="5.000000" interpolation="1" />
 	</track>
 	<track name="light:position.z" folded="0" muteKeyCount="0"
 color="ffa9b250">
-		<key row="0" value="20.000000" interpolation="0" />
+		<key row="0" value="0.000000" interpolation="1" />
+	</track>
+	<track name="disk:position.x" folded="0" muteKeyCount="0"
+color="ff60b250">
+		<key row="0" value="0.000000" interpolation="0" />
+	</track>
+	<track name="disk:position.y" folded="0" muteKeyCount="0"
+color="ff4fb292">
+		<key row="0" value="0.000000" interpolation="0" />
+	</track>
+	<track name="disk:position.z" folded="0" muteKeyCount="0"
+color="ff4f71b2">
+		<key row="0" value="0.000000" interpolation="0" />
+	</track>
+	<track name="disk:rotation.x" folded="0" muteKeyCount="0"
+color="ff8850b2">
+		<key row="0" value="0.000000" interpolation="0" />
+	</track>
+	<track name="disk:rotation.y" folded="0" muteKeyCount="0"
+color="ffb25091">
+		<key row="0" value="0.000000" interpolation="1" />
+		<key row="824" value="20.000000" interpolation="1" />
+	</track>
+	<track name="disk:rotation.z" folded="0" muteKeyCount="0"
+color="ffb27474">
+		<key row="0" value="0.000000" interpolation="0" />
+	</track>
+	<track name="disk:iteration:translate.x" folded="0"
+muteKeyCount="0" color="ffb28050">
+		<key row="0" value="2.000000" interpolation="0" />
+	</track>
+	<track name="disk:iteration:translate.y" folded="0"
+muteKeyCount="0" color="ffa9b250">
+		<key row="0" value="4.000000" interpolation="0" />
+	</track>
+	<track name="disk:iteration:translate.z" folded="0"
+muteKeyCount="0" color="ff60b250">
+		<key row="0" value="2.000000" interpolation="0" />
+	</track>
+	<track name="disk:iteration:rotation.x" folded="0"
+muteKeyCount="0" color="ff4fb292">
+		<key row="0" value="2.200000" interpolation="0" />
+		<key row="13" value="2.000000" interpolation="0" />
+		<key row="15" value="2.200000" interpolation="0" />
+		<key row="21" value="2.000000" interpolation="0" />
+		<key row="23" value="2.200000" interpolation="0" />
+		<key row="29" value="2.000000" interpolation="0" />
+		<key row="31" value="2.200000" interpolation="0" />
+		<key row="37" value="2.000000" interpolation="0" />
+		<key row="39" value="2.200000" interpolation="0" />
+		<key row="45" value="2.000000" interpolation="0" />
+		<key row="47" value="2.200000" interpolation="0" />
+		<key row="53" value="2.000000" interpolation="0" />
+		<key row="55" value="2.200000" interpolation="0" />
+		<key row="61" value="2.000000" interpolation="0" />
+		<key row="63" value="2.200000" interpolation="0" />
+		<key row="69" value="2.000000" interpolation="0" />
+		<key row="71" value="2.200000" interpolation="0" />
+		<key row="77" value="2.000000" interpolation="0" />
+		<key row="79" value="2.200000" interpolation="0" />
+		<key row="85" value="2.000000" interpolation="0" />
+		<key row="87" value="2.200000" interpolation="0" />
+		<key row="93" value="2.000000" interpolation="0" />
+		<key row="95" value="2.200000" interpolation="0" />
+		<key row="101" value="2.000000" interpolation="0" />
+		<key row="103" value="2.200000" interpolation="0" />
+		<key row="109" value="2.000000" interpolation="0" />
+		<key row="111" value="2.200000" interpolation="0" />
+		<key row="117" value="2.000000" interpolation="0" />
+		<key row="119" value="2.200000" interpolation="0" />
+		<key row="125" value="2.000000" interpolation="0" />
+		<key row="127" value="2.200000" interpolation="0" />
+		<key row="133" value="2.000000" interpolation="0" />
+		<key row="135" value="2.200000" interpolation="0" />
+		<key row="141" value="2.000000" interpolation="0" />
+		<key row="143" value="2.200000" interpolation="0" />
+		<key row="149" value="2.000000" interpolation="0" />
+		<key row="151" value="2.200000" interpolation="0" />
+	</track>
+	<track name="disk:iteration:rotation.y" folded="0"
+muteKeyCount="0" color="ff4f71b2">
+		<key row="0" value="3.200000" interpolation="0" />
+		<key row="13" value="3.000000" interpolation="0" />
+		<key row="15" value="3.200000" interpolation="0" />
+		<key row="21" value="3.000000" interpolation="0" />
+		<key row="23" value="3.200000" interpolation="0" />
+		<key row="29" value="3.000000" interpolation="0" />
+		<key row="31" value="3.200000" interpolation="0" />
+		<key row="37" value="3.000000" interpolation="0" />
+		<key row="39" value="3.200000" interpolation="0" />
+		<key row="45" value="3.000000" interpolation="0" />
+		<key row="47" value="3.200000" interpolation="0" />
+		<key row="53" value="3.000000" interpolation="0" />
+		<key row="55" value="3.200000" interpolation="0" />
+		<key row="61" value="3.000000" interpolation="0" />
+		<key row="63" value="3.200000" interpolation="0" />
+		<key row="69" value="3.000000" interpolation="0" />
+		<key row="71" value="3.200000" interpolation="0" />
+		<key row="77" value="3.000000" interpolation="0" />
+		<key row="79" value="3.200000" interpolation="0" />
+		<key row="85" value="3.000000" interpolation="0" />
+		<key row="87" value="3.200000" interpolation="0" />
+		<key row="93" value="3.000000" interpolation="0" />
+		<key row="95" value="3.200000" interpolation="0" />
+		<key row="101" value="3.000000" interpolation="0" />
+		<key row="103" value="3.200000" interpolation="0" />
+		<key row="109" value="3.000000" interpolation="0" />
+		<key row="111" value="3.200000" interpolation="0" />
+		<key row="117" value="3.000000" interpolation="0" />
+		<key row="119" value="3.200000" interpolation="0" />
+		<key row="125" value="3.000000" interpolation="0" />
+		<key row="127" value="3.200000" interpolation="0" />
+		<key row="133" value="3.000000" interpolation="0" />
+		<key row="135" value="3.200000" interpolation="0" />
+		<key row="141" value="3.000000" interpolation="0" />
+		<key row="143" value="3.200000" interpolation="0" />
+		<key row="149" value="3.000000" interpolation="0" />
+		<key row="151" value="3.200000" interpolation="0" />
+	</track>
+	<track name="disk:iteration:rotation.z" folded="0"
+muteKeyCount="0" color="ff8850b2">
+		<key row="0" value="4.500000" interpolation="0" />
+		<key row="13" value="4.400000" interpolation="0" />
+		<key row="15" value="4.500000" interpolation="0" />
+		<key row="21" value="4.400000" interpolation="0" />
+		<key row="23" value="4.500000" interpolation="0" />
+		<key row="29" value="4.400000" interpolation="0" />
+		<key row="31" value="4.500000" interpolation="0" />
+		<key row="37" value="4.400000" interpolation="0" />
+		<key row="39" value="4.500000" interpolation="0" />
+		<key row="45" value="4.400000" interpolation="0" />
+		<key row="47" value="4.500000" interpolation="0" />
+		<key row="53" value="4.400000" interpolation="0" />
+		<key row="55" value="4.500000" interpolation="0" />
+		<key row="61" value="4.400000" interpolation="0" />
+		<key row="63" value="4.500000" interpolation="0" />
+		<key row="69" value="4.400000" interpolation="0" />
+		<key row="71" value="4.500000" interpolation="0" />
+		<key row="77" value="4.400000" interpolation="0" />
+		<key row="79" value="4.500000" interpolation="0" />
+		<key row="85" value="4.400000" interpolation="0" />
+		<key row="87" value="4.500000" interpolation="0" />
+		<key row="93" value="4.400000" interpolation="0" />
+		<key row="95" value="4.500000" interpolation="0" />
+		<key row="101" value="4.400000" interpolation="0" />
+		<key row="103" value="4.500000" interpolation="0" />
+		<key row="109" value="4.400000" interpolation="0" />
+		<key row="111" value="4.500000" interpolation="0" />
+		<key row="117" value="4.400000" interpolation="0" />
+		<key row="119" value="4.500000" interpolation="0" />
+		<key row="125" value="4.400000" interpolation="0" />
+		<key row="127" value="4.500000" interpolation="0" />
+		<key row="133" value="4.400000" interpolation="0" />
+		<key row="135" value="4.500000" interpolation="0" />
+		<key row="141" value="4.400000" interpolation="0" />
+		<key row="143" value="4.500000" interpolation="0" />
+		<key row="149" value="4.400000" interpolation="0" />
+		<key row="151" value="4.500000" interpolation="0" />
+	</track>
+	<track name="disk:scale" folded="0" muteKeyCount="0"
+color="ffb25091">
+		<key row="0" value="1.000000" interpolation="0" />
+	</track>
+	<track name="disk:offset" folded="0" muteKeyCount="0"
+color="ffb27474">
+		<key row="0" value="1.000000" interpolation="0" />
+	</track>
+	<track name="disk:iterations" folded="0" muteKeyCount="0"
+color="ffb28050">
+		<key row="0" value="2.000000" interpolation="0" />
 	</track>
 </tracks>
 	</rootElement>

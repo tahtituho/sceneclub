@@ -6,11 +6,11 @@
     "screen": {
         "width": 1280,
         "height": 960,
-        "FPS": 60
+        "FPS": 80
     },
     "music": {
-        "file": "assets\\music\\music.mp3",
-        "BPM": 80.0,
+        "file": "assets\\music\\tune.mp3",
+        "BPM": 70.0,
 		"frequency": 44000
     },
 	"sync": {
@@ -49,6 +49,11 @@
             "type": "texture",
             "name": "texture03nm",
             "file": "assets\\textures\\texture03nm.png"
+        },
+        {
+            "type": "texture",
+            "name": "labelTexture",
+            "file": "assets\\textures\\label.png"
         }
     ],
     "tracks": [
@@ -85,6 +90,55 @@
             "name": {
                 "track": "light:position",
                 "variable": "lightPosition"
+            }
+        },
+        {
+            "type": "float3",
+            "name": {
+                "track": "disk:position",
+                "variable": "diskPosition"
+            }
+        },
+        {
+            "type": "float3",
+            "name": {
+                "track": "disk:rotation",
+                "variable": "diskRotation"
+            }
+        },
+        {
+            "type": "float3",
+            "name": {
+                "track": "disk:iteration:translate",
+                "variable": "diskIterationTranslate"
+            }
+        },
+        {
+            "type": "float3",
+            "name": {
+                "track": "disk:iteration:rotation",
+                "variable": "diskIterationRotation"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "disk:scale",
+                "variable": "diskScale"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "disk:offset",
+                "variable": "diskOffset"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "disk:iterations",
+                "variable": "diskIterations"
             }
         }
     ]
