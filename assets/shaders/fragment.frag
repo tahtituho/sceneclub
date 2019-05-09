@@ -93,7 +93,7 @@ vec3 opTwist(vec3 p, float angle)
     float c = cos(angle * p.y);
     float s = sin(angle * p.y);
     mat2 m = mat2(c, -s, s, c);
-    vec3 q = vec3(m * p.zx, p.y);
+    vec3 q = vec3(m * p.xz, p.y);
     return q;
 }
 
