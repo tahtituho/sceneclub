@@ -20,6 +20,7 @@ uniform vec3 diskIterationRotation;
 uniform float diskScale;
 uniform float diskOffset;
 uniform float diskIterations;
+uniform float diskTime;
 
 uniform sampler2D texture01;
 uniform sampler2D texture01nm;
@@ -607,7 +608,7 @@ entity scene(vec3 path)
         int(diskIterations),
         diskScale,
         diskOffset,
-        diskIterationRotation,
+        diskIterationRotation * impulse(diskTime, 1.0),
         diskIterationTranslate
     );
     disks.needNormals = true;
