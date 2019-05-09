@@ -701,6 +701,10 @@ vec2 cylindiricalMapping(vec3 p) {
     return vec2(atan(p.y / p.x), p.z);
 }
 
+vec2 resizeLabelTexture(vec2 t) {
+    return -vec2((t.x / 15) + 0.5, (t.y / 15) - 0.1);
+}
+
 vec3 processColor(hit h, vec3 rd, vec3 eye, vec2 uv, vec3 lp)
 {
     if(h.steps >= rayMaxSteps) {
@@ -710,7 +714,7 @@ vec3 processColor(hit h, vec3 rd, vec3 eye, vec2 uv, vec3 lp)
    
     vec3 depth = vec3((1.0 - smoothstep(0.0, rayMaxSteps, float(h.steps))));
     if(h.entity.material.texture == 1) {
-        depth *= texture(texture01, planarMapping(vec3(h.entity.point.x, h.entity.point.y / 4.5, h.entity.point.z / 1.5))).rgb;
+        depth *= texture(labelTexture, resizeLabelTexture(vec2(h.entity.point.x, h.entity.point.y))).rgb;
     }
     vec3 ambient = ambient(h.entity.material.ambient, h.entity.material.ambientStrength);
     vec3 diffuse = diffuse(h.normal, h.point, lp, h.entity.material.diffuse, h.entity.material.diffuseStrength);
