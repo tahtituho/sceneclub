@@ -33,6 +33,12 @@ in float[12] sines;
 in float[12] coses;
 
 #define PI 3.14159265359
+struct surface {
+    int index;
+    vec2 offset;
+    vec2 scale;
+};
+
 struct material {
     vec3 ambient;
     float ambientStrength;
@@ -46,7 +52,8 @@ struct material {
 
     float shadowHardness;
     bool receiveShadows;
-    int texture;
+
+    surface surface;
 };
 
 struct entity {
@@ -453,7 +460,11 @@ entity mDisk(vec3 path) {
         0.4,
         1.0, 
         true,
-        0
+        surface(
+            0,
+            vec2(0.0),
+            vec2(0.0)
+        )
     );
 
     material labelMaterial = material(
@@ -466,7 +477,11 @@ entity mDisk(vec3 path) {
         0.4,
         1.0, 
         true,
-        1
+        surface(
+            1,
+            vec2(15.0, 15.0),
+            vec2(0.5, -0.1)
+        )
     );
 
     material sliderMaterial = material(
@@ -479,7 +494,11 @@ entity mDisk(vec3 path) {
         1.4,
         1.0, 
         true,
-        0
+        surface(
+            0,
+            vec2(0.0),
+            vec2(0.0)
+        )
     );
 
     entity bodyHull = mBox(
@@ -701,8 +720,8 @@ vec2 cylindiricalMapping(vec3 p) {
     return vec2(atan(p.y / p.x), p.z);
 }
 
-vec2 resizeLabelTexture(vec2 t) {
-    return -vec2((t.x / 15) + 0.5, (t.y / 15) - 0.1);
+vec2 scaledMapping(vec2 t, vec2 o, vec2 s) {
+    return -vec2((t.x / o.x) + s.x, (t.y / o.y) + s.y);
 }
 
 vec3 processColor(hit h, vec3 rd, vec3 eye, vec2 uv, vec3 lp)
@@ -713,8 +732,8 @@ vec3 processColor(hit h, vec3 rd, vec3 eye, vec2 uv, vec3 lp)
     }
    
     vec3 depth = vec3((1.0 - smoothstep(0.0, rayMaxSteps, float(h.steps))));
-    if(h.entity.material.texture == 1) {
-        depth *= texture(labelTexture, resizeLabelTexture(vec2(h.entity.point.x, h.entity.point.y))).rgb;
+    if(h.entity.material.surface.index == 1) {
+        depth *= texture(labelTexture, scaledMapping(h.entity.point.xy, h.entity.material.surface.offset, h.entity.material.surface.scale);).rgb;
     }
     vec3 ambient = ambient(h.entity.material.ambient, h.entity.material.ambientStrength);
     vec3 diffuse = diffuse(h.normal, h.point, lp, h.entity.material.diffuse, h.entity.material.diffuseStrength);
