@@ -1,7 +1,8 @@
 {
     "demo": {
         "name": "sceneclub 2019",
-        "group": "tähtituho"
+        "group": "tähtituho",
+        "release": false
     },
     "screen": {
         "width": 1280,
@@ -15,7 +16,6 @@
     },
 	"sync": {
         "RPB": 8,
-        "file": "assets\\music\\demo-release.rocket",
         "host": "localhost"
     },
     "shaders": {
@@ -25,31 +25,6 @@
         "minorVersion": 3
     },
 	 "assets": [
-        {
-            "type": "texture",
-            "name": "texture01",
-            "file": "assets\\textures\\texture01.png"
-        },
-        {
-            "type": "texture",
-            "name": "texture01nm",
-            "file": "assets\\textures\\texture01nm.png"
-        },
-		{
-            "type": "texture",
-            "name": "texture02",
-            "file": "assets\\textures\\texture02.png"
-        },
-		{
-            "type": "texture",
-            "name": "texture02nm",
-            "file": "assets\\textures\\texture02nm.png"
-        },
-		{
-            "type": "texture",
-            "name": "texture03nm",
-            "file": "assets\\textures\\texture03nm.png"
-        },
         {
             "type": "texture",
             "name": "labelTexture",
@@ -139,6 +114,13 @@
             "name": {
                 "track": "disk:iterations",
                 "variable": "diskIterations"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "disk:time",
+                "variable": "diskTime"
             }
         }
     ]
