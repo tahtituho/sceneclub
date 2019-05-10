@@ -33,7 +33,7 @@ in float[12] sines;
 in float[12] coses;
 
 #define PI 3.14159265359
-struct surface {
+struct textureOptions {
     int index;
     vec2 offset;
     vec2 scale;
@@ -53,7 +53,7 @@ struct material {
     float shadowHardness;
     bool receiveShadows;
 
-    surface surface;
+    textureOptions textureOptions;
 };
 
 struct entity {
@@ -460,7 +460,7 @@ entity mDisk(vec3 path) {
         0.4,
         1.0, 
         true,
-        surface(
+        textureOptions(
             0,
             vec2(0.0),
             vec2(0.0)
@@ -477,7 +477,7 @@ entity mDisk(vec3 path) {
         0.4,
         1.0, 
         true,
-        surface(
+        textureOptions(
             1,
             vec2(15.0, 15.0),
             vec2(0.5, -0.1)
@@ -494,7 +494,7 @@ entity mDisk(vec3 path) {
         1.4,
         1.0, 
         true,
-        surface(
+        textureOptions(
             0,
             vec2(0.0),
             vec2(0.0)
@@ -732,8 +732,8 @@ vec3 processColor(hit h, vec3 rd, vec3 eye, vec2 uv, vec3 lp)
     }
    
     vec3 depth = vec3((1.0 - smoothstep(0.0, rayMaxSteps, float(h.steps))));
-    if(h.entity.material.surface.index == 1) {
-        depth *= texture(labelTexture, scaledMapping(h.entity.point.xy, h.entity.material.surface.offset, h.entity.material.surface.scale);).rgb;
+    if(h.entity.material.textureOptions.index == 1) {
+        depth *= texture(labelTexture, scaledMapping(h.entity.point.xy, h.entity.material.textureOptions.offset, h.entity.material.textureOptions.scale)).rgb;
     }
     vec3 ambient = ambient(h.entity.material.ambient, h.entity.material.ambientStrength);
     vec3 diffuse = diffuse(h.normal, h.point, lp, h.entity.material.diffuse, h.entity.material.diffuseStrength);
