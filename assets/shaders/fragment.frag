@@ -2,6 +2,7 @@
 
 out vec4 FragColor;
 
+uniform float act;
 uniform float time;
 uniform vec2 resolution;
 
@@ -19,8 +20,19 @@ uniform vec3 diskIterationTranslate;
 uniform vec3 diskIterationRotation;
 uniform float diskScale;
 uniform float diskOffset;
+uniform vec3 diskFold;
 uniform float diskIterations;
 uniform float diskTime;
+
+uniform vec3 mandlePosition;
+uniform vec3 mandleRotation;
+uniform float mandleSize;
+uniform float mandleScale;
+uniform float mandleMinRad;
+uniform float mandleLimit;
+uniform float mandleFactor;
+uniform float mandleIterations;
+uniform float mandleFoldingLimit;
 
 uniform sampler2D texture01;
 uniform sampler2D texture01nm;
@@ -28,6 +40,7 @@ uniform sampler2D texture02;
 uniform sampler2D texture02nm;
 uniform sampler2D texture03nm;
 uniform sampler2D labelTexture;
+uniform sampler2D ttDiskTexture;
 
 in float[12] sines;
 in float[12] coses;
@@ -37,6 +50,7 @@ struct textureOptions {
     int index;
     vec2 offset;
     vec2 scale;
+    bool normalMap;
 };
 
 struct material {
@@ -196,27 +210,27 @@ float sdHexPrism(vec3 p, vec3 pos, vec2 h)
 }
 
 
-float sdMandleBox(vec3 path, vec3 pos, float size, float scale, float minrad, float limit, float c)
+entity mMandleBox(vec3 path, material material, float size, float scale, float minrad, float limit, float factor, int iterations, float foldingLimit)
 {
-    const int Iterations = 8;
-    const float FoldingLimit = 5.0;
-
     vec4 scalev = vec4(size) / minrad;
-    float AbsScalem1 = abs(scale - 1.0);
-    float AbsScaleRaisedTo1mIters = pow(abs(scale), float(1 - Iterations));
-    vec4 p = vec4(path + pos, 1.0), p0 = p;  // p.w is the distance estimate
-   
-    for (int i=0; i<Iterations; i++)
+    float absScalem1 = abs(scale - 1.0);
+    float absScaleRaisedTo1mIters = pow(abs(scale), float(1 - iterations));
+    vec4 p = vec4(path, 1.0), p0 = p;
+ 
+    for (int i = 0; i < iterations; i++)
     {
-        p.xyz = clamp(p.xyz, -limit, limit) * c - p.xyz;
+        p.xyz = clamp(p.xyz, -limit, limit) * factor - p.xyz;
         float r2 = dot(p.xyz, p.xyz);
-        p *= clamp(max(minrad / r2, minrad), 0.2, 1.5);
+        p *= clamp(max(minrad / r2, minrad), 0.19, 4.0);
         p = p * scalev + p0;
-        if (r2>FoldingLimit) {
+        if (r2 > foldingLimit) {
             break;
         } 
    }
-   return ((length(p.xyz) - AbsScalem1) / p.w - AbsScaleRaisedTo1mIters);
+   entity e;
+   e.dist =  ((length(p.xyz) - absScalem1) / p.w - absScaleRaisedTo1mIters);
+   e.material = material;
+   return e;
 }
 
 float sdMandlebulb(vec3 p, vec3 pos, float pwr, float dis, float bail, int it) {
@@ -463,7 +477,8 @@ entity mDisk(vec3 path) {
         textureOptions(
             0,
             vec2(0.0),
-            vec2(0.0)
+            vec2(0.0),
+            false
         )
     );
 
@@ -471,16 +486,17 @@ entity mDisk(vec3 path) {
         vec3(1.0, 1.0, 1.0),
         1.0,
         vec3(1.0, 1.0, 1.0),
-        1.0,
-        vec3(0.508273, 0.508273, 0.508273),
         0.0,
-        0.4,
+        vec3(0.508273, 0.508273, 0.508273),
+        1.0,
+        0.0,
         1.0, 
         true,
         textureOptions(
             1,
-            vec2(15.0, 15.0),
-            vec2(0.5, -0.1)
+            vec2(15.0, 11.0),
+            vec2(0.5, -0.14),
+            false
         )
     );
 
@@ -497,7 +513,8 @@ entity mDisk(vec3 path) {
         textureOptions(
             0,
             vec2(0.0),
-            vec2(0.0)
+            vec2(0.0),
+            false
         )
     );
 
@@ -594,14 +611,14 @@ entity mFractal(vec3 path, int iter, float s, float o, material material) {
     return m;
 }
 
-entity mDiskFractal(vec3 path, int iter, float s, float o, vec3 rotation, vec3 trans) {
+entity mDiskFractal(vec3 path, int iter, float s, float o, vec3 fold, vec3 rotation, vec3 trans) {
     entity m;
     vec3 p1 = path;
     float scale = s;
     float offset = o;
     for(int i = 1; i <= iter; i++) {
 
-        p1 = boxFold(p1, vec3(15.0, 15.0, 15.0));
+        p1 = boxFold(p1, fold);
         
         //p1 = mengerFold(p1);
         //p1 = sphereFold(p1, -10.9, 70.0);
@@ -622,16 +639,79 @@ entity mDiskFractal(vec3 path, int iter, float s, float o, vec3 rotation, vec3 t
 
 entity scene(vec3 path)
 {   
-    entity disks = mDiskFractal(
-        rot(translate(path, diskPosition), diskRotation),
-        int(diskIterations),
-        diskScale,
-        diskOffset,
-        diskIterationRotation * impulse(diskTime, 1.0),
-        diskIterationTranslate
-    );
-    disks.needNormals = true;
-    return disks;
+    int a = int(act);
+    if(a == 1) {
+        entity disks = mDiskFractal(
+            rot(translate(path, diskPosition), diskRotation),
+            int(diskIterations),
+            diskScale,
+            diskOffset,
+            diskFold,
+            diskIterationRotation + sinc(diskTime, 10.0),
+            diskIterationTranslate * sinc(diskTime, 4.0)
+        );
+        disks.needNormals = true;
+        return disks;
+    }
+    else if(a == 2) {
+        material material = material(
+            vec3(0.0, 1.0, 1.0),
+            1.0,
+            vec3(1.0, 1.0, 1.0),
+            1.0,
+            vec3(0.508273, 0.508273, 0.508273),
+            0.0,
+            0.4,
+            1.0, 
+            true,
+            textureOptions(
+                0,
+                vec2(0.0),
+                vec2(0.0),
+                false
+            )
+        );
+        entity bulb;
+        bulb.dist = sdMandlebulb(path, vec3(0.0), 2.0, 2.0, 2.0, 2);
+        bulb.material = material;
+        bulb.needNormals = true;
+        
+        entity mandle = mMandleBox(
+            rot(translate(path, mandlePosition), mandleRotation),
+            material,
+            mandleSize,
+            mandleScale,
+            mandleMinRad, 
+            mandleLimit,
+            mandleFactor,
+            int(mandleIterations),
+            mandleFoldingLimit
+        );
+        mandle.needNormals = true;
+        return bulb;
+    }
+    else if (a == 3) {
+        material material = material(
+            vec3(0.0, 1.0, 1.0),
+            1.0,
+            vec3(1.0, 1.0, 1.0),
+            1.0,
+            vec3(0.508273, 0.508273, 0.508273),
+            0.0,
+            0.4,
+            1.0, 
+            true,
+            textureOptions(
+                0,
+                vec2(0.0),
+                vec2(0.0),
+                false
+            )
+        );
+        entity seppo = mBox(path, vec3(10.0), 0.0, material);
+        return seppo;
+    }
+
 } 
 
 hit raymarch(vec3 rayOrigin, vec3 rayDirection) {

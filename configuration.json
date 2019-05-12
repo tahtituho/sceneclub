@@ -27,11 +27,48 @@
 	 "assets": [
         {
             "type": "texture",
+            "name": "texture01",
+            "file": "assets\\textures\\texture01.png"
+        },
+        {
+            "type": "texture",
+            "name": "texture01nm",
+            "file": "assets\\textures\\texture01nm.png"
+        },
+		{
+            "type": "texture",
+            "name": "texture02",
+            "file": "assets\\textures\\texture02.png"
+        },
+		{
+            "type": "texture",
+            "name": "texture02nm",
+            "file": "assets\\textures\\texture02nm.png"
+        },
+		{
+            "type": "texture",
+            "name": "texture03nm",
+            "file": "assets\\textures\\texture03nm.png"
+        },
+        {
+            "type": "texture",
             "name": "labelTexture",
             "file": "assets\\textures\\label.png"
+        },
+        {
+            "type": "texture",
+            "name": "ttDiskTexture",
+            "file": "assets\\textures\\ttdisk.png"
         }
     ],
     "tracks": [
+        {
+            "type": "float1",
+            "name": {
+                "track": "common:act",
+                "variable": "act"
+            }
+        },
         {
             "type": "float3",
             "name": {
@@ -110,6 +147,13 @@
             }
         },
         {
+            "type": "float3",
+            "name": {
+                "track": "disk:iteration:fold",
+                "variable": "diskFold"
+            }
+        },
+        {
             "type": "float1",
             "name": {
                 "track": "disk:iterations",
@@ -122,7 +166,71 @@
                 "track": "disk:time",
                 "variable": "diskTime"
             }
+        },
+        {
+            "type": "float3",
+            "name": {
+                "track": "mandle:position",
+                "variable": "mandlePosition"
+            }
+        },
+        {
+            "type": "float3",
+            "name": {
+                "track": "mandle:rotation",
+                "variable": "mandleRotation"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "mandle:size",
+                "variable": "mandleSize"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "mandle:scale",
+                "variable": "mandleScale"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "mandle:minrad",
+                "variable": "mandleMinRad"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "mandle:limit",
+                "variable": "mandleLimit"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "mandle:factor",
+                "variable": "mandleFactor"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "mandle:iterations",
+                "variable": "mandleIterations"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "mandle:foldingLimit",
+                "variable": "mandleFoldingLimit"
+            }
         }
+        
     ]
 
     
