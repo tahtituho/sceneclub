@@ -41,6 +41,7 @@ uniform sampler2D texture02nm;
 uniform sampler2D texture03nm;
 uniform sampler2D labelTexture;
 uniform sampler2D ttDiskTexture;
+uniform sampler2D bootTexture;
 
 in float[12] sines;
 in float[12] coses;
@@ -455,6 +456,85 @@ entity mTorus(vec3 path, vec2 dim, material material) {
     return m;
 }
 
+entity mConsole(vec3 path, vec3 pos) {
+
+    vec3 consoleSize = vec3(12.0, 7.3, 4.0);
+    vec3 baySize = vec3(10.0, 5.0, 0.3);
+    vec3 screenSize = vec3(10.5, 5.419, 0.3);
+    vec3 buttonSize = vec3(0.6, 0.6, 0.6);
+
+    material consoleMaterial = material(
+        vec3(0.25, 0.25, 0.25),
+        1.0,
+        vec3(0.4, 0.4, 0.4),
+        1.0,
+        vec3(0.774597, 0.774597, 0.774597),
+        1.0,
+        1.4,
+        1.0, 
+        true,
+        textureOptions(
+            0,
+            vec2(0.0),
+            vec2(0.0),
+            false
+        )
+    );
+    material screenMaterial = material(
+        vec3(1.0, 1.0, 1.0),
+        1.0,
+        vec3(1.0, 1.0, 1.0),
+        1.0,
+        vec3(0.508273, 0.508273, 0.508273),
+        0.0,
+        0.4,
+        1.0, 
+        true,
+        textureOptions(
+            2,
+            vec2(20.0, 10.0),
+            vec2(0.5, -0.1),
+            false
+        )
+    );
+
+    entity consoleHull = mBox(
+        translate(path, pos),
+        consoleSize,
+        0.0,
+        consoleMaterial
+    );
+    consoleHull.needNormals = true;
+
+    entity bayHull = mBox(
+        translate(path, translate(vec3(0.0, 5.45, -1.0), pos)),
+        baySize,
+        0.0,
+        consoleMaterial
+    );
+    bayHull.needNormals = true;
+
+    entity screenHull = mBox(
+        translate(path, translate(vec3(0.0, -0.7, 3.9), pos)),
+        screenSize,
+        0.0,
+        screenMaterial
+    );
+    screenHull.needNormals = true;
+
+    entity buttonHull = mBox(
+        translate(path, translate(vec3(8.0, 7.1, 1.1), pos)),
+        buttonSize,
+        0.0,
+        consoleMaterial
+    );
+    buttonHull.needNormals = true;
+
+    entity complete = opSubtraction(bayHull, opSubtraction(screenHull, opUnion(buttonHull, consoleHull)));
+    return complete;
+
+}
+
 entity mDisk(vec3 path) {
     vec3 diskSize = vec3(8.9, 9.3, 0.3);
     vec3 holeSize = vec3(0.49, 0.381, 1.0);
@@ -691,25 +771,8 @@ entity scene(vec3 path)
         return bulb;
     }
     else if (a == 3) {
-        material material = material(
-            vec3(0.0, 1.0, 1.0),
-            1.0,
-            vec3(1.0, 1.0, 1.0),
-            1.0,
-            vec3(0.508273, 0.508273, 0.508273),
-            0.0,
-            0.4,
-            1.0, 
-            true,
-            textureOptions(
-                0,
-                vec2(0.0),
-                vec2(0.0),
-                false
-            )
-        );
-        entity seppo = mBox(path, vec3(10.0), 0.0, material);
-        return seppo;
+        entity console = mConsole(path, vec3(0.0));
+        return console;
     }
 
 } 
@@ -814,6 +877,9 @@ vec3 processColor(hit h, vec3 rd, vec3 eye, vec2 uv, vec3 lp)
     vec3 depth = vec3((1.0 - smoothstep(0.0, rayMaxSteps, float(h.steps))));
     if(h.entity.material.textureOptions.index == 1) {
         depth *= texture(labelTexture, scaledMapping(h.entity.point.xy, h.entity.material.textureOptions.offset, h.entity.material.textureOptions.scale)).rgb;
+    }
+    if(h.entity.material.textureOptions.index == 2) {
+        depth *= texture(bootTexture, scaledMapping(h.entity.point.xy, h.entity.material.textureOptions.offset, h.entity.material.textureOptions.scale)).rgb;
     }
     vec3 ambient = ambient(h.entity.material.ambient, h.entity.material.ambientStrength);
     vec3 diffuse = diffuse(h.normal, h.point, lp, h.entity.material.diffuse, h.entity.material.diffuseStrength);

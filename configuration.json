@@ -59,6 +59,11 @@
             "type": "texture",
             "name": "ttDiskTexture",
             "file": "assets\\textures\\ttdisk.png"
+        },
+        {
+            "type": "texture",
+            "name": "bootTexture",
+            "file": "assets\\textures\\boot.png"
         }
     ],
     "tracks": [
