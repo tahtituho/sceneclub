@@ -33,6 +33,8 @@ uniform float mandleLimit;
 uniform float mandleFactor;
 uniform float mandleIterations;
 uniform float mandleFoldingLimit;
+uniform float mandleRadClamp1;
+uniform float mandleRadClamp2;
 
 uniform sampler2D texture01;
 uniform sampler2D texture01nm;
@@ -211,7 +213,7 @@ float sdHexPrism(vec3 p, vec3 pos, vec2 h)
 }
 
 
-entity mMandleBox(vec3 path, material material, float size, float scale, float minrad, float limit, float factor, int iterations, float foldingLimit)
+entity mMandleBox(vec3 path, material material, float size, float scale, float minrad, float limit, float factor, int iterations, float foldingLimit, float radClamp1, float radClamp2)
 {
     vec4 scalev = vec4(size) / minrad;
     float absScalem1 = abs(scale - 1.0);
@@ -222,7 +224,7 @@ entity mMandleBox(vec3 path, material material, float size, float scale, float m
     {
         p.xyz = clamp(p.xyz, -limit, limit) * factor - p.xyz;
         float r2 = dot(p.xyz, p.xyz);
-        p *= clamp(max(minrad / r2, minrad), 0.19, 4.0);
+        p *= clamp(max(minrad / r2, minrad), radClamp1, radClamp2);
         p = p * scalev + p0;
         if (r2 > foldingLimit) {
             break;
@@ -231,6 +233,7 @@ entity mMandleBox(vec3 path, material material, float size, float scale, float m
    entity e;
    e.dist =  ((length(p.xyz) - absScalem1) / p.w - absScaleRaisedTo1mIters);
    e.material = material;
+   e.point = p.xyz;
    return e;
 }
 
@@ -556,9 +559,9 @@ entity mDisk(vec3 path) {
         true,
         textureOptions(
             0,
-            vec2(0.0),
-            vec2(0.0),
-            false
+            vec2(0.0, 0.0),
+            vec2(0.0, 0.0),
+            true
         )
     );
 
@@ -765,10 +768,12 @@ entity scene(vec3 path)
             mandleLimit,
             mandleFactor,
             int(mandleIterations),
-            mandleFoldingLimit
+            mandleFoldingLimit,
+            mandleRadClamp1,
+            mandleRadClamp2
         );
         mandle.needNormals = true;
-        return bulb;
+        return mandle;
     }
     else if (a == 3) {
         entity console = mConsole(path, vec3(0.0));
@@ -875,15 +880,17 @@ vec3 processColor(hit h, vec3 rd, vec3 eye, vec2 uv, vec3 lp)
     }
    
     vec3 depth = vec3((1.0 - smoothstep(0.0, rayMaxSteps, float(h.steps))));
+    vec3 normal =  h.normal;
     if(h.entity.material.textureOptions.index == 1) {
         depth *= texture(labelTexture, scaledMapping(h.entity.point.xy, h.entity.material.textureOptions.offset, h.entity.material.textureOptions.scale)).rgb;
     }
-    if(h.entity.material.textureOptions.index == 2) {
+    else if(h.entity.material.textureOptions.index == 2) {
         depth *= texture(bootTexture, scaledMapping(h.entity.point.xy, h.entity.material.textureOptions.offset, h.entity.material.textureOptions.scale)).rgb;
     }
+
     vec3 ambient = ambient(h.entity.material.ambient, h.entity.material.ambientStrength);
-    vec3 diffuse = diffuse(h.normal, h.point, lp, h.entity.material.diffuse, h.entity.material.diffuseStrength);
-    vec3 specular = specular(h.normal, eye, h.point, lp, h.entity.material.specular, h.entity.material.specularStrength, h.entity.material.shininess);
+    vec3 diffuse = diffuse(normal, h.point, lp, h.entity.material.diffuse, h.entity.material.diffuseStrength);
+    vec3 specular = specular(normal, eye, h.point, lp, h.entity.material.specular, h.entity.material.specularStrength, h.entity.material.shininess);
     float shadow = 1.0;
     if(h.entity.material.receiveShadows == true) {
         shadow = shadows(h.point, normalize(lp - h.point), 0.05, 0.08, h.entity.material.shadowHardness);

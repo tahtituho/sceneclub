@@ -234,6 +234,20 @@
                 "track": "mandle:foldingLimit",
                 "variable": "mandleFoldingLimit"
             }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "mandle:radClamp1",
+                "variable": "mandleRadClamp1"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "mandle:radClamp2",
+                "variable": "mandleRadClamp2"
+            }
         }
         
     ]
