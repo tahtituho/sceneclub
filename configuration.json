@@ -64,7 +64,13 @@
             "type": "texture",
             "name": "bootTexture",
             "file": "assets\\textures\\boot.png"
+        },
+        {
+            "type": "texture",
+            "name": "consoleTexture",
+            "file": "assets\\textures\\fedora-grey.png"
         }
+
     ],
     "tracks": [
         {
@@ -233,6 +239,13 @@
             "name": {
                 "track": "mandle:foldingLimit",
                 "variable": "mandleFoldingLimit"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
+                "track": "console:buttonExtrude",
+                "variable": "consoleButtonExtrude"
             }
         }
         
