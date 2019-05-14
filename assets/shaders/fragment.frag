@@ -47,6 +47,7 @@ uniform sampler2D labelTexture;
 uniform sampler2D ttDiskTexture;
 uniform sampler2D bootTexture;
 uniform sampler2D consoleTexture;
+uniform sampler2D ttMarkerDiskTexture;
 
 in float[12] sines;
 in float[12] coses;
@@ -581,7 +582,7 @@ entity mDisk(vec3 path) {
         textureOptions(
             1,
             vec2(15.0, 11.0),
-            vec2(0.5, -0.14),
+            vec2(0.5, -0.133),
             false
         )
     );
@@ -900,7 +901,7 @@ vec3 processColor(hit h, vec3 rd, vec3 eye, vec2 uv, vec3 lp)
     vec3 depth = vec3((1.0 - smoothstep(0.0, rayMaxSteps, float(h.steps))));
     vec3 normal =  h.normal;
     if(h.entity.material.textureOptions.index == 1) {
-        depth *= texture(labelTexture, scaledMapping(h.entity.point.xy, h.entity.material.textureOptions.offset, h.entity.material.textureOptions.scale)).rgb;
+        depth *= texture(ttMarkerDiskTexture, scaledMapping(h.entity.point.xy, h.entity.material.textureOptions.offset, h.entity.material.textureOptions.scale)).rgb;
     }
     else if(h.entity.material.textureOptions.index == 2) {
         depth *= texture(bootTexture, scaledMapping(h.entity.point.xy, h.entity.material.textureOptions.offset, h.entity.material.textureOptions.scale)).rgb;

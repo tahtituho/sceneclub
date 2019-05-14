@@ -69,6 +69,11 @@
             "type": "texture",
             "name": "consoleTexture",
             "file": "assets\\textures\\fedora-grey.png"
+        },
+        {
+            "type": "texture",
+            "name": "ttMarkerDiskTexture",
+            "file": "assets\\textures\\labels\\otsikko tussi.png"
         }
 
     ],
