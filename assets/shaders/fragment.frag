@@ -467,8 +467,10 @@ entity mConsole(vec3 path, vec3 pos) {
 
     vec3 consoleSize = vec3(18.0, 14.3, 4.0);
     vec3 baySize = vec3(12.0, 6.0, 0.4);
-    vec3 screenSize = vec3(10.5, 5.419, 0.3);
+    vec3 screenSize = vec3(10.5, 5.419, 0.4);
     vec3 buttonSize = vec3(0.8, 1.8, 0.8);
+    vec3 grilleSize = vec3(0.05, 1.5, 1.5);
+    vec3 speakerSize = vec3(3.1, 9.0, 0.01);
 
     material consoleMaterial = material(
         vec3(0.25, 0.25, 0.25),
@@ -508,7 +510,7 @@ entity mConsole(vec3 path, vec3 pos) {
     entity consoleHull = mBox(
         translate(path, pos),
         consoleSize,
-        0.0,
+        0.2,
         consoleMaterial
     );
     consoleHull.needNormals = true;
@@ -519,15 +521,15 @@ entity mConsole(vec3 path, vec3 pos) {
         0.0,
         consoleMaterial
     );
-    bayHull.needNormals = true;
+    bayHull.needNormals = false;
 
     entity screenHull = mBox(
-        translate(path, translate(vec3(0.0, 5.7, 3.9), pos)),
+        translate(path, translate(vec3(0.0, 3.0, 3.9), pos)),
         screenSize,
         0.0,
         screenMaterial
     );
-    screenHull.needNormals = true;
+    screenHull.needNormals = false;
 
     entity buttonHull = mBox(
         translate(path, translate(vec3(-8.0, -13.0 - consoleButtonExtrude, 1.1), pos)),
@@ -537,7 +539,42 @@ entity mConsole(vec3 path, vec3 pos) {
     );
     buttonHull.needNormals = true;
 
-    entity complete = opSubtraction(bayHull, opSubtraction(screenHull, opUnion(buttonHull, consoleHull)));
+    entity grilleHull = mBox(
+        repeat(translate(path, translate(vec3(-15.6, 12.1, 4.0), pos)), vec3(0.8, 0.0, 0.0)),
+        grilleSize,
+        0.1,
+        consoleMaterial
+    );
+    grilleHull.needNormals = false;
+
+    entity holeHull = mTorus(
+        repeat(rotX(translate(path, vec3(-14.5, 7.0, 4.35)), 1.57), vec3(0.7, 0.0, 0.7)),
+        vec2(0.15, 0.15),
+        consoleMaterial
+    );
+    holeHull.needNormals = false;
+
+    entity speakerHull = mBox(
+        translate(path, vec3(-14.2, 0.0, 4.35)),
+        speakerSize,
+        0.1,
+        consoleMaterial
+    );
+    speakerHull.needNormals = false;
+
+    entity speakerHull2 = mBox(
+        translate(path, vec3(13.9, 0.0, 4.35)),
+        speakerSize,
+        0.1,
+        consoleMaterial
+    );
+    speakerHull.needNormals = false;
+
+    entity speaker1 = opSubtraction(holeHull, speakerHull);
+    entity speaker2 = opSubtraction(holeHull, speakerHull2);
+    entity speakers = opUnion(speaker1, speaker2);
+
+    entity complete = opSubtraction(bayHull, opSubtraction(screenHull, opSubtraction(grilleHull, opUnion(speakers, opUnion(buttonHull, consoleHull)))));
     return complete;
 
 }
@@ -778,21 +815,15 @@ entity scene(vec3 path)
     else if (a == 3) {
         entity console = mConsole(path, vec3(0.0));
         console.needNormals = true;
-        entity disks = mDiskFractal(
-            rot(translate(path, diskPosition), diskRotation),
-            int(diskIterations),
-            diskScale,
-            diskOffset,
-            diskFold,
-            diskIterationRotation + sinc(diskTime, 10.0),
-            diskIterationTranslate * sinc(diskTime, 4.0)
+        entity disk = mDisk(
+            rot(translate(path, diskPosition), diskRotation)
         );
-        disks.needNormals = true;
-        if (console.dist < disks.dist) {
+        disk.needNormals = true;
+        if (console.dist < disk.dist) {
             return console;
         }
         else {
-            return disks;
+            return disk;
         }
     }
 
