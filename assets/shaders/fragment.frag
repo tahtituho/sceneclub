@@ -742,12 +742,12 @@ entity scene(vec3 path)
     }
     else if(a == 2) {
         material material = material(
-            vec3(0.0, 1.0, 1.0),
+            vec3(0.26, 0.49, 0.96),
             1.0,
-            vec3(1.0, 1.0, 1.0),
-            1.0,
-            vec3(0.508273, 0.508273, 0.508273),
-            0.0,
+            vec3(0.5, 0.5, 0.5),
+            1.3,
+            vec3(0.0, 0.0, 0.5),
+            10.0,
             0.4,
             1.0, 
             true,
@@ -758,10 +758,6 @@ entity scene(vec3 path)
                 false
             )
         );
-        entity bulb;
-        bulb.dist = sdMandlebulb(path, vec3(0.0), 2.0, 2.0, 2.0, 2);
-        bulb.material = material;
-        bulb.needNormals = true;
         
         entity mandle = mMandleBox(
             rot(translate(path, mandlePosition), mandleRotation),
