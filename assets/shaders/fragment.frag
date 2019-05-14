@@ -894,8 +894,7 @@ vec2 scaledMapping(vec2 t, vec2 o, vec2 s) {
 vec3 processColor(hit h, vec3 rd, vec3 eye, vec2 uv, vec3 lp)
 {
     if(h.steps >= rayMaxSteps) {
-        //We did not hit anything
-        return vec3(0.0, 0.0, 1.0);
+        return mix(vec3(0.0, 0.0, 0.0), vec3(0.97, 0.65, 0.26), (uv.y + 1.0));
     }
    
     vec3 depth = vec3((1.0 - smoothstep(0.0, rayMaxSteps, float(h.steps))));
