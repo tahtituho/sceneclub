@@ -11,15 +11,23 @@ color="ffb27474">
 		<key row="0" value="30.000000" interpolation="1" />
 		<key row="10" value="10.000000" interpolation="1" />
 		<key row="34" value="0.000000" interpolation="0" />
+		<key row="160" value="0.000000" interpolation="0" />
 	</track>
 	<track name="camera:position.y" folded="0" muteKeyCount="0"
 color="ffb28050">
 		<key row="0" value="-30.000000" interpolation="1" />
 		<key row="34" value="0.000000" interpolation="0" />
+		<key row="72" value="3.000000" interpolation="0" />
+		<key row="160" value="3.000000" interpolation="1" />
+		<key row="192" value="-20.000000" interpolation="0" />
 	</track>
 	<track name="camera:position.z" folded="0" muteKeyCount="0"
 color="ffa9b250">
 		<key row="0" value="20.000000" interpolation="0" />
+		<key row="72" value="10.000000" interpolation="0" />
+		<key row="104" value="10.000000" interpolation="1" />
+		<key row="152" value="25.000000" interpolation="1" />
+		<key row="208" value="10.000000" interpolation="0" />
 	</track>
 	<track name="camera:lookat.x" folded="0" muteKeyCount="0"
 color="ff60b250">
@@ -30,6 +38,7 @@ color="ff60b250">
 color="ff4fb292">
 		<key row="0" value="-20.000000" interpolation="1" />
 		<key row="43" value="0.000000" interpolation="0" />
+		<key row="72" value="3.000000" interpolation="0" />
 	</track>
 	<track name="camera:lookat.z" folded="0" muteKeyCount="0"
 color="ff4f71b2">
@@ -62,8 +71,7 @@ color="ff60b250">
 	</track>
 	<track name="disk:position.y" folded="0" muteKeyCount="0"
 color="ff4fb292">
-		<key row="0" value="-31.179989" interpolation="1" />
-		<key row="43" value="0.000000" interpolation="0" />
+		<key row="0" value="-31.179989" interpolation="0" />
 	</track>
 	<track name="disk:position.z" folded="0" muteKeyCount="0"
 color="ff4f71b2">
@@ -205,5 +213,9 @@ color="ff4fb292">
 		<key row="11" value="0.000000" interpolation="1" />
 		<key row="32" value="3.000000" interpolation="0" />
 	</track>
+	<track name="mandle:radClamp1" folded="0" muteKeyCount="0"
+color="ff4f71b2" />
+	<track name="mandle:radClamp2" folded="0" muteKeyCount="0"
+color="ff8850b2" />
 </tracks>
 	</rootElement>
