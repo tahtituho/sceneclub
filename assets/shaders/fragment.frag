@@ -38,16 +38,12 @@ uniform float mandleRadClamp2;
 
 uniform float consoleButtonExtrude;
 
-uniform sampler2D texture01;
-uniform sampler2D texture01nm;
-uniform sampler2D texture02;
-uniform sampler2D texture02nm;
-uniform sampler2D texture03nm;
-uniform sampler2D labelTexture;
-uniform sampler2D ttDiskTexture;
 uniform sampler2D bootTexture;
 uniform sampler2D consoleTexture;
 uniform sampler2D ttMarkerDiskTexture;
+uniform sampler2D colhoTexture;
+uniform sampler2D helgrimaTexture;
+uniform sampler2D majaniemiTexture;
 
 in float[12] sines;
 in float[12] coses;
