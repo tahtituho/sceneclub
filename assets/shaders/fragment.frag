@@ -575,7 +575,7 @@ entity mConsole(vec3 path, vec3 pos) {
 
 }
 
-entity mDisk(vec3 path) {
+entity mDisk(vec3 path, int tIndex) {
     vec3 diskSize = vec3(8.9, 9.3, 0.3);
     vec3 holeSize = vec3(0.49, 0.381, 1.0);
     vec3 labelSize = vec3(6.943, 5.419, 0.15);
@@ -613,9 +613,9 @@ entity mDisk(vec3 path) {
         1.0, 
         true,
         textureOptions(
-            1,
+            tIndex,
             vec2(15.0, 11.0),
-            vec2(0.5, -0.133),
+            vec2(0.5, -0.14),
             false
         )
     );
@@ -701,6 +701,7 @@ entity mDisk(vec3 path) {
         bodyMaterial
     );
     entity complete = opSubtraction(notchHull, opUnion(sliderHull, opSubtraction(sliderCreviceHull, opSubtraction(labelHull, opSubtraction(rightHoleHull, opSubtraction(leftHoleHull, bodyHull))))));
+    complete.point = path;
     return complete;
 
 }
@@ -750,10 +751,7 @@ entity mDiskFractal(vec3 path, int iter, float s, float o, vec3 fold, vec3 rotat
        
     }
     
-    m = mDisk(p1);
-    //this makes further objects darker
-    //m.dist *= pow(scale, -float(iter));
-    m.point = p1;
+    m = mDisk(p1, 1);
     return m;
 }
 
@@ -812,7 +810,7 @@ entity scene(vec3 path)
         entity console = mConsole(path, vec3(0.0));
         console.needNormals = true;
         entity disk = mDisk(
-            rot(translate(path, diskPosition), diskRotation)
+            rot(translate(path, diskPosition), diskRotation), 1
         );
         disk.needNormals = true;
         if (console.dist < disk.dist) {
@@ -822,7 +820,13 @@ entity scene(vec3 path)
             return disk;
         }
     }
-
+    else if (a == 4) {
+        vec3 pr = rotY(path, time - 0.5);
+        entity colhoDisk = mDisk(rot(translate(pr, diskPosition + vec3(0.0, 0.0, 17.2)), diskRotation + vec3(0.0, 0.0, 0.0)), 5);
+        entity helgrimaDisk = mDisk(rot(translate(pr, diskPosition + vec3(-20.0, 0.0, -17.2)), diskRotation + vec3(0.0, 2.0, 0.0)), 6);
+        entity majaniemiDisk = mDisk(rot(translate(pr, diskPosition + vec3(20.0, 0.0, -17.2)), diskRotation + vec3(0.0, -2.0, 0.0)), 7);
+        return opUnion(colhoDisk, opUnion(helgrimaDisk, majaniemiDisk));
+    }
 } 
 
 hit raymarch(vec3 rayOrigin, vec3 rayDirection) {
@@ -917,7 +921,7 @@ vec2 scaledMapping(vec2 t, vec2 o, vec2 s) {
 
 vec3 processColor(hit h, vec3 rd, vec3 eye, vec2 uv, vec3 lp)
 {
-    if(h.steps >= rayMaxSteps) {
+    if(h.steps >= rayMaxSteps || h.dist > 200.0) {
         return mix(vec3(0.0, 0.0, 0.0), vec3(0.97, 0.65, 0.26), (uv.y + 1.0));
     }
    
@@ -931,6 +935,15 @@ vec3 processColor(hit h, vec3 rd, vec3 eye, vec2 uv, vec3 lp)
     }
     else if(h.entity.material.textureOptions.index == 3) {
         depth *= texture(consoleTexture, scaledMapping(h.entity.point.xy, h.entity.material.textureOptions.offset, h.entity.material.textureOptions.scale)).rgb;
+    }
+    else if(h.entity.material.textureOptions.index == 5) {
+        depth *= texture(colhoTexture, scaledMapping(h.entity.point.xy, h.entity.material.textureOptions.offset, h.entity.material.textureOptions.scale)).rgb;
+    }
+    else if(h.entity.material.textureOptions.index == 6) {
+        depth *= texture(helgrimaTexture, scaledMapping(h.entity.point.xy, h.entity.material.textureOptions.offset, h.entity.material.textureOptions.scale)).rgb;
+    }
+    else if(h.entity.material.textureOptions.index == 7) {
+        depth *= texture(majaniemiTexture, scaledMapping(h.entity.point.xy, h.entity.material.textureOptions.offset, h.entity.material.textureOptions.scale)).rgb;
     }
 
     vec3 ambient = ambient(h.entity.material.ambient, h.entity.material.ambientStrength);
