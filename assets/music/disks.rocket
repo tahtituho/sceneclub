@@ -1,53 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rootElement>
-	<group name="disk:" />
 <tracks rows="10000" startRow="0" endRow="10000" rowsPerBeat="8"
 beatsPerMin="70" musicFilename="D">
 	<track name="common:act" folded="0" muteKeyCount="0"
 color="ff8850b2">
 		<key row="0" value="1.000000" interpolation="0" />
-		<key row="440" value="2.000000" interpolation="0" />
+		<key row="407" value="3.000000" interpolation="0" />
+		<key row="544" value="3.000000" interpolation="0" />
+		<key row="788" value="4.000000" interpolation="0" />
+		<key row="836" value="0.000000" interpolation="0" />
 	</track>
 	<track name="camera:position.x" folded="0" muteKeyCount="0"
 color="ffb27474">
 		<key row="0" value="0.000000" interpolation="0" />
-		<key row="440" value="0.000000" interpolation="0" />
+		<key row="544" value="30.000000" interpolation="1" />
+		<key row="554" value="10.000000" interpolation="1" />
+		<key row="578" value="0.000000" interpolation="0" />
+		<key row="704" value="0.000000" interpolation="1" />
+		<key row="754" value="25.000000" interpolation="1" />
+		<key row="788" value="50.000000" interpolation="1" />
 	</track>
 	<track name="camera:position.y" folded="0" muteKeyCount="0"
 color="ffb28050">
 		<key row="0" value="0.000000" interpolation="0" />
 		<key row="20" value="-20.000000" interpolation="0" />
 		<key row="44" value="50.000000" interpolation="0" />
-		<key row="440" value="0.000000" interpolation="0" />
+		<key row="544" value="-30.000000" interpolation="1" />
+		<key row="578" value="0.000000" interpolation="0" />
+		<key row="616" value="3.000000" interpolation="0" />
+		<key row="701" value="3.000000" interpolation="1" />
+		<key row="754" value="25.000000" interpolation="1" />
+		<key row="788" value="0.000000" interpolation="1" />
 	</track>
 	<track name="camera:position.z" folded="0" muteKeyCount="0"
 color="ffa9b250">
 		<key row="0" value="10.000000" interpolation="0" />
 		<key row="20" value="5.000000" interpolation="0" />
 		<key row="44" value="-5.000000" interpolation="0" />
-		<key row="440" value="0.100000" interpolation="0" />
+		<key row="544" value="20.000000" interpolation="0" />
+		<key row="616" value="10.000000" interpolation="0" />
+		<key row="648" value="10.000000" interpolation="1" />
+		<key row="696" value="25.000000" interpolation="1" />
+		<key row="704" value="25.000000" interpolation="1" />
+		<key row="754" value="0.000000" interpolation="2" />
+		<key row="788" value="1.000000" interpolation="2" />
 	</track>
 	<track name="camera:lookat.x" folded="0" muteKeyCount="0"
 color="ff60b250">
 		<key row="0" value="0.000000" interpolation="0" />
 		<key row="20" value="10.000000" interpolation="0" />
 		<key row="44" value="-20.000000" interpolation="0" />
-		<key row="440" value="0.000000" interpolation="0" />
+		<key row="544" value="10.000000" interpolation="1" />
+		<key row="587" value="0.000000" interpolation="0" />
+		<key row="788" value="0.000000" interpolation="0" />
 	</track>
 	<track name="camera:lookat.y" folded="0" muteKeyCount="0"
 color="ff4fb292">
 		<key row="0" value="0.000000" interpolation="0" />
-		<key row="440" value="0.500000" interpolation="0" />
+		<key row="544" value="-20.000000" interpolation="1" />
+		<key row="587" value="0.000000" interpolation="0" />
+		<key row="616" value="3.000000" interpolation="0" />
+		<key row="788" value="0.000000" interpolation="0" />
 	</track>
 	<track name="camera:lookat.z" folded="0" muteKeyCount="0"
 color="ff4f71b2">
 		<key row="0" value="0.000000" interpolation="0" />
-		<key row="440" value="1.000000" interpolation="0" />
+		<key row="544" value="0.000000" interpolation="0" />
+		<key row="587" value="0.000000" interpolation="0" />
+		<key row="788" value="0.000000" interpolation="0" />
 	</track>
 	<track name="march:maxsteps" folded="0" muteKeyCount="0"
 color="ff8850b2">
 		<key row="0" value="64.000000" interpolation="0" />
-		<key row="440" value="128.000000" interpolation="0" />
+		<key row="544" value="64.000000" interpolation="0" />
 	</track>
 	<track name="march:threshold" folded="0" muteKeyCount="0"
 color="ffb25091">
@@ -56,53 +81,59 @@ color="ffb25091">
 	<track name="light:position.x" folded="0" muteKeyCount="0"
 color="ffb27474">
 		<key row="0" value="150.000000" interpolation="0" />
-		<key row="440" value="0.000000" interpolation="0" />
-		<key row="568" value="0.000000" interpolation="0" />
-		<key row="728" value="0.000000" interpolation="0" />
+		<key row="755" value="20.000000" interpolation="0" />
+		<key row="788" value="60.000000" interpolation="0" />
 	</track>
 	<track name="light:position.y" folded="0" muteKeyCount="0"
 color="ffb28050">
 		<key row="0" value="20.000000" interpolation="0" />
-		<key row="440" value="20.000000" interpolation="0" />
-		<key row="568" value="-20.000000" interpolation="0" />
-		<key row="728" value="10.000000" interpolation="0" />
 	</track>
 	<track name="light:position.z" folded="0" muteKeyCount="0"
 color="ffa9b250">
 		<key row="0" value="150.000000" interpolation="0" />
-		<key row="440" value="20.000000" interpolation="0" />
-		<key row="568" value="0.000000" interpolation="0" />
-		<key row="728" value="10.000000" interpolation="0" />
+		<key row="788" value="0.000000" interpolation="0" />
 	</track>
 	<track name="disk:position.x" folded="0" muteKeyCount="0"
 color="ff60b250">
 		<key row="0" value="0.000000" interpolation="0" />
+		<key row="544" value="2.000000" interpolation="0" />
+		<key row="788" value="0.000000" interpolation="0" />
 	</track>
 	<track name="disk:position.y" folded="0" muteKeyCount="0"
 color="ff4fb292">
 		<key row="0" value="0.000000" interpolation="0" />
+		<key row="544" value="-31.179989" interpolation="0" />
+		<key row="788" value="0.000000" interpolation="0" />
 	</track>
 	<track name="disk:position.z" folded="0" muteKeyCount="0"
 color="ff4f71b2">
 		<key row="0" value="0.000000" interpolation="0" />
+		<key row="544" value="0.000000" interpolation="0" />
+		<key row="788" value="0.000000" interpolation="0" />
 	</track>
 	<track name="disk:rotation.x" folded="0" muteKeyCount="0"
 color="ff8850b2">
 		<key row="0" value="0.000000" interpolation="0" />
 		<key row="141" value="0.000000" interpolation="1" />
-		<key row="439" value="15.000000" interpolation="0" />
+		<key row="439" value="10.000000" interpolation="1" />
+		<key row="544" value="0.000000" interpolation="0" />
+		<key row="788" value="0.000000" interpolation="0" />
 	</track>
 	<track name="disk:rotation.y" folded="0" muteKeyCount="0"
 color="ffb25091">
 		<key row="0" value="0.000000" interpolation="0" />
 		<key row="141" value="0.000000" interpolation="1" />
 		<key row="439" value="10.000000" interpolation="0" />
+		<key row="544" value="0.000000" interpolation="0" />
+		<key row="788" value="0.000000" interpolation="0" />
 	</track>
 	<track name="disk:rotation.z" folded="0" muteKeyCount="0"
 color="ffb27474">
 		<key row="0" value="0.000000" interpolation="0" />
 		<key row="141" value="0.000000" interpolation="1" />
 		<key row="439" value="5.000000" interpolation="0" />
+		<key row="544" value="0.000000" interpolation="0" />
+		<key row="788" value="0.000000" interpolation="0" />
 	</track>
 	<track name="disk:iteration:translate.x" folded="0"
 muteKeyCount="0" color="ffb28050">
@@ -237,7 +268,7 @@ color="ff4f71b2">
 	</track>
 	<track name="disk:iterations" folded="0" muteKeyCount="0"
 color="ffb28050">
-		<key row="0" value="1.000000" interpolation="0" />
+		<key row="0" value="0.000000" interpolation="0" />
 		<key row="141" value="2.000000" interpolation="0" />
 	</track>
 	<track name="disk:time" folded="0" muteKeyCount="0"
@@ -355,29 +386,24 @@ color="ffa9b250">
 	<track name="mandle:position.x" folded="0" muteKeyCount="0"
 color="ff8850b2">
 		<key row="0" value="0.000000" interpolation="0" />
-		<key row="440" value="0.000000" interpolation="0" />
 	</track>
 	<track name="mandle:position.y" folded="0" muteKeyCount="0"
 color="ffb25091">
 		<key row="0" value="0.000000" interpolation="0" />
-		<key row="440" value="1.000000" interpolation="0" />
 	</track>
 	<track name="mandle:position.z" folded="0" muteKeyCount="0"
 color="ffb27474">
 		<key row="0" value="0.000000" interpolation="0" />
-		<key row="440" value="0.000000" interpolation="0" />
 	</track>
 	<track name="mandle:rotation.x" folded="0" muteKeyCount="0"
 color="ffb28050">
 		<key row="0" value="0.000000" interpolation="0" />
-		<key row="440" value="0.000000" interpolation="0" />
 		<key row="728" value="1.200000" interpolation="0" />
 	</track>
 	<track name="mandle:rotation.y" folded="0" muteKeyCount="0"
 color="ffa9b250">
 		<key row="0" value="0.000000" interpolation="1" />
 		<key row="208" value="10.000000" interpolation="0" />
-		<key row="440" value="0.000000" interpolation="1" />
 		<key row="568" value="3.000000" interpolation="1" />
 		<key row="728" value="-3.000000" interpolation="1" />
 		<key row="819" value="0.000000" interpolation="0" />
@@ -385,55 +411,47 @@ color="ffa9b250">
 	<track name="mandle:rotation.z" folded="0" muteKeyCount="0"
 color="ff60b250">
 		<key row="0" value="0.000000" interpolation="0" />
-		<key row="440" value="0.000000" interpolation="0" />
 		<key row="568" value="5.000000" interpolation="0" />
 	</track>
 	<track name="mandle:size" folded="0" muteKeyCount="0"
 color="ffb25091">
 		<key row="0" value="1.000000" interpolation="0" />
-		<key row="440" value="1.490001" interpolation="0" />
 		<key row="568" value="1.610001" interpolation="0" />
 		<key row="728" value="1.490001" interpolation="0" />
 	</track>
 	<track name="mandle:scale" folded="0" muteKeyCount="0"
 color="ffb27474">
 		<key row="0" value="0.100000" interpolation="0" />
-		<key row="440" value="1.280000" interpolation="0" />
 		<key row="568" value="1.280000" interpolation="0" />
 		<key row="728" value="1.280000" interpolation="0" />
 	</track>
 	<track name="mandle:minrad" folded="0" muteKeyCount="0"
 color="ffb28050">
 		<key row="0" value="0.110000" interpolation="0" />
-		<key row="440" value="0.150000" interpolation="0" />
 		<key row="568" value="0.300000" interpolation="0" />
 		<key row="728" value="0.150000" interpolation="0" />
 	</track>
 	<track name="mandle:limit" folded="0" muteKeyCount="0"
 color="ffa9b250">
 		<key row="0" value="1.000000" interpolation="0" />
-		<key row="440" value="0.080000" interpolation="0" />
 		<key row="568" value="0.090000" interpolation="0" />
 		<key row="728" value="0.080000" interpolation="0" />
 	</track>
 	<track name="mandle:factor" folded="0" muteKeyCount="0"
 color="ff60b250">
 		<key row="0" value="2.000000" interpolation="0" />
-		<key row="440" value="3.120001" interpolation="0" />
 		<key row="568" value="2.630001" interpolation="0" />
 		<key row="728" value="3.120001" interpolation="0" />
 	</track>
 	<track name="mandle:iterations" folded="0" muteKeyCount="0"
 color="ff4fb292">
 		<key row="0" value="1.000000" interpolation="0" />
-		<key row="440" value="14.000000" interpolation="0" />
 		<key row="568" value="17.000000" interpolation="0" />
 		<key row="728" value="14.000000" interpolation="0" />
 	</track>
 	<track name="mandle:foldingLimit" folded="0" muteKeyCount="0"
 color="ff4f71b2">
 		<key row="0" value="13.000000" interpolation="0" />
-		<key row="440" value="20.000000" interpolation="0" />
 		<key row="568" value="20.000000" interpolation="0" />
 		<key row="728" value="20.000000" interpolation="0" />
 	</track>
@@ -443,17 +461,19 @@ color="ff4fb292">
 	</track>
 	<track name="mandle:radClamp1" folded="0" muteKeyCount="0"
 color="ff4f71b2">
-		<key row="440" value="0.160000" interpolation="0" />
 		<key row="568" value="0.160000" interpolation="0" />
 		<key row="728" value="0.160000" interpolation="0" />
 	</track>
 	<track name="mandle:radClamp2" folded="0" muteKeyCount="0"
 color="ff8850b2">
-		<key row="440" value="0.700000" interpolation="0" />
 		<key row="568" value="0.700000" interpolation="0" />
 		<key row="728" value="0.700000" interpolation="0" />
 	</track>
 	<track name="console:buttonExtrude" folded="0" muteKeyCount="0"
-color="ffb25091" />
+color="ffb25091">
+		<key row="544" value="0.000000" interpolation="0" />
+		<key row="555" value="0.000000" interpolation="1" />
+		<key row="576" value="3.000000" interpolation="0" />
+	</track>
 </tracks>
 	</rootElement>
