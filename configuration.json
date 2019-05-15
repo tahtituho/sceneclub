@@ -236,6 +236,13 @@
         {
             "type": "float1",
             "name": {
+                "track": "console:destroyConsole",
+                "variable": "destroyConsole"
+            }
+        },
+        {
+            "type": "float1",
+            "name": {
                 "track": "mandle:radClamp1",
                 "variable": "mandleRadClamp1"
             }
