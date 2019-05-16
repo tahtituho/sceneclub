@@ -38,6 +38,7 @@ uniform float mandleRadClamp1;
 uniform float mandleRadClamp2;
 
 uniform float consoleButtonExtrude;
+uniform float destroyConsole;
 
 uniform sampler2D bootTexture;
 uniform sampler2D consoleTexture;
@@ -567,11 +568,18 @@ entity mConsole(vec3 path, vec3 pos) {
     );
     speakerHull.needNormals = false;
 
+     entity endHull = mTorus(
+        repeat(rotX(translate(path, vec3(-14.5, 7.0, 4.35)), 1.57), vec3(2.0, 2.0, 2.0)),
+        vec2(0.5, destroyConsole),
+        consoleMaterial
+    );
+    holeHull.needNormals = false;
+
     entity speaker1 = opSubtraction(holeHull, speakerHull);
     entity speaker2 = opSubtraction(holeHull, speakerHull2);
     entity speakers = opUnion(speaker1, speaker2);
+    entity complete = opSubtraction(endHull, opSubtraction(bayHull, opSubtraction(screenHull, opSubtraction(grilleHull, opUnion(speakers, opUnion(buttonHull, consoleHull))))));
 
-    entity complete = opSubtraction(bayHull, opSubtraction(screenHull, opSubtraction(grilleHull, opUnion(speakers, opUnion(buttonHull, consoleHull)))));
     return complete;
 
 }
@@ -923,8 +931,11 @@ vec2 scaledMapping(vec2 t, vec2 o, vec2 s) {
 vec3 background(vec2 uv) {
     int a = int(act);
     vec3 r = vec3(0.0, 0.0, 0.0);
-    if(a == 1 || a == 3) {
+    if(a == 1) {
         r = mix(vec3(0.0, 0.0, 0.0), vec3(0.97, 0.65, 0.26), (uv.y + 1.0));
+    }
+    else if(a == 3) {
+    	mix(vec3(0.0, 0.0, 0.0), vec3(0.26, 0.65, 0.97), (uv.y + 1.0));
     }
     else if(a == 4) {
         r = mix(vec3(0.0, 0.0, 0.0), vec3(0.97, 0.65, 0.26), (uv.x + 1.0));
@@ -934,7 +945,7 @@ vec3 background(vec2 uv) {
 
 vec3 processColor(hit h, vec3 rd, vec3 eye, vec2 uv, vec3 lp)
 {
-    if(h.steps >= rayMaxSteps || h.dist > 200.0) {
+    if((h.steps >= rayMaxSteps || h.dist > 200.0)) {
         return background(uv);
     }
    
