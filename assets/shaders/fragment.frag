@@ -25,18 +25,6 @@ uniform vec3 diskFold;
 uniform float diskIterations;
 uniform float diskTime;
 
-uniform vec3 mandlePosition;
-uniform vec3 mandleRotation;
-uniform float mandleSize;
-uniform float mandleScale;
-uniform float mandleMinRad;
-uniform float mandleLimit;
-uniform float mandleFactor;
-uniform float mandleIterations;
-uniform float mandleFoldingLimit;
-uniform float mandleRadClamp1;
-uniform float mandleRadClamp2;
-
 uniform float consoleButtonExtrude;
 uniform float destroyConsole;
 
@@ -779,41 +767,6 @@ entity scene(vec3 path)
         );
         disks.needNormals = true;
         return disks;
-    }
-    else if(a == 2) {
-        material material = material(
-            vec3(0.26, 0.49, 0.96),
-            1.0,
-            vec3(0.5, 0.5, 0.5),
-            1.3,
-            vec3(0.0, 0.0, 0.5),
-            10.0,
-            0.4,
-            1.0, 
-            true,
-            textureOptions(
-                0,
-                vec2(0.0),
-                vec2(0.0),
-                false
-            )
-        );
-        
-        entity mandle = mMandleBox(
-            rot(translate(path, mandlePosition), mandleRotation),
-            material,
-            mandleSize,
-            mandleScale,
-            mandleMinRad, 
-            mandleLimit,
-            mandleFactor,
-            int(mandleIterations),
-            mandleFoldingLimit,
-            mandleRadClamp1,
-            mandleRadClamp2
-        );
-        mandle.needNormals = true;
-        return mandle;
     }
     else if (a == 3) {
         entity console = mConsole(path, vec3(0.0));

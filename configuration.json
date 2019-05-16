@@ -171,69 +171,6 @@
             }
         },
         {
-            "type": "float3",
-            "name": {
-                "track": "mandle:position",
-                "variable": "mandlePosition"
-            }
-        },
-        {
-            "type": "float3",
-            "name": {
-                "track": "mandle:rotation",
-                "variable": "mandleRotation"
-            }
-        },
-        {
-            "type": "float1",
-            "name": {
-                "track": "mandle:size",
-                "variable": "mandleSize"
-            }
-        },
-        {
-            "type": "float1",
-            "name": {
-                "track": "mandle:scale",
-                "variable": "mandleScale"
-            }
-        },
-        {
-            "type": "float1",
-            "name": {
-                "track": "mandle:minrad",
-                "variable": "mandleMinRad"
-            }
-        },
-        {
-            "type": "float1",
-            "name": {
-                "track": "mandle:limit",
-                "variable": "mandleLimit"
-            }
-        },
-        {
-            "type": "float1",
-            "name": {
-                "track": "mandle:factor",
-                "variable": "mandleFactor"
-            }
-        },
-        {
-            "type": "float1",
-            "name": {
-                "track": "mandle:iterations",
-                "variable": "mandleIterations"
-            }
-        },
-        {
-            "type": "float1",
-            "name": {
-                "track": "mandle:foldingLimit",
-                "variable": "mandleFoldingLimit"
-            }
-        },
-        {
             "type": "float1",
             "name": {
                 "track": "console:buttonExtrude",
@@ -246,22 +183,7 @@
                 "track": "console:destroyConsole",
                 "variable": "destroyConsole"
             }
-        },
-        {
-            "type": "float1",
-            "name": {
-                "track": "mandle:radClamp1",
-                "variable": "mandleRadClamp1"
-            }
-        },
-        {
-            "type": "float1",
-            "name": {
-                "track": "mandle:radClamp2",
-                "variable": "mandleRadClamp2"
-            }
         }
-        
     ]
 
     
