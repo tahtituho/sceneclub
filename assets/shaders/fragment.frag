@@ -8,6 +8,7 @@ uniform vec2 resolution;
 
 uniform vec3 cameraPosition;
 uniform vec3 cameraLookAt;
+uniform float cameraFov;
 
 uniform float rayMaxSteps;
 uniform float rayThreshold;
@@ -985,13 +986,12 @@ vec3 drawMarching() {
     vec2 uv = (gl_FragCoord.xy / resolution.xy) * 2.0 - 1.0;
     
     uv.x *= aspectRatio;
-    float fov = 1.0;
     vec3 camPos = vec3(cameraPosition.x, cameraPosition.y, cameraPosition.z);
     vec3 forward = normalize(cameraLookAt - camPos); 
     vec3 right = normalize(vec3(forward.z, 0.0, -forward.x));
     vec3 up = normalize(cross(forward, right)); 
     
-    vec3 rd = normalize(forward + fov * uv.x * right + fov * uv.y * up);
+    vec3 rd = normalize(forward + cameraFov * uv.x * right + cameraFov * uv.y * up);
     
     vec3 ro = vec3(camPos);
  
