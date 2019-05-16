@@ -919,10 +919,22 @@ vec2 scaledMapping(vec2 t, vec2 o, vec2 s) {
     return -vec2((t.x / o.x) + s.x, (t.y / o.y) + s.y);
 }
 
+vec3 background(vec2 uv) {
+    int a = int(act);
+    vec3 r = vec3(0.0, 0.0, 0.0);
+    if(a == 1 || a == 3) {
+        r = mix(vec3(0.0, 0.0, 0.0), vec3(0.97, 0.65, 0.26), (uv.y + 1.0));
+    }
+    else if(a == 4) {
+        r = mix(vec3(0.0, 0.0, 0.0), vec3(0.97, 0.65, 0.26), (uv.x + 1.0));
+    }
+    return r;
+}
+
 vec3 processColor(hit h, vec3 rd, vec3 eye, vec2 uv, vec3 lp)
 {
     if(h.steps >= rayMaxSteps || h.dist > 200.0) {
-        return mix(vec3(0.0, 0.0, 0.0), vec3(0.97, 0.65, 0.26), (uv.y + 1.0));
+        return background(uv);
     }
    
     vec3 depth = vec3((1.0 - smoothstep(0.0, rayMaxSteps, float(h.steps))));
